@@ -1,0 +1,1 @@
+`ollama create val -f ./Modelfile`
