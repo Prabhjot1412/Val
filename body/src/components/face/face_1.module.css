@@ -3,16 +3,23 @@
     border: 0.2rem solid black;
     height: 45rem;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow:  -3px 5px 12px 0px #00000063;
 }
 
 .chatContainer {
     height: 90%;
     width: 75%;
-    margin-left: 12%;
     margin-top: 1%;
     border-radius: 1rem;
     background-color: rgba(154, 140, 113, 0.308);
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    box-shadow:  -3px 5px 12px 0px #00000063;
 }
 
 .aiChatMessage, .userChatMessage {
@@ -32,4 +39,42 @@
 .userChatMessage {
     box-shadow:  4px 4px 7px 0 red;
     float: right;
+}
+
+.textArea{
+  width: 30rem;
+  height: 5rem;
+  box-shadow:  -3px 5px 12px 0px #00000063;
+  padding: 1rem;
+}
+
+.textAreaContainer {
+  padding: 1rem;
+  border: 5px solid black;
+  box-shadow:  -3px 5px 12px 0px #00000063;
+  width: 50rem;
+  margin: 3rem;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sendButton {
+    margin: 15px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: larger;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: .35s all;
+
+    &:hover {
+        background-color: rgb(147, 147, 147);
+    }
+
+    &:active {
+        background-color: rgb(72, 72, 72);
+    }
 }
