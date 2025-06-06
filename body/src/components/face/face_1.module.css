@@ -1,0 +1,35 @@
+.container {
+    margin: 5rem 8rem;
+    border: 0.2rem solid black;
+    height: 45rem;
+    overflow: auto;
+}
+
+.chatContainer {
+    height: 90%;
+    width: 75%;
+    margin-left: 12%;
+    margin-top: 1%;
+    border-radius: 1rem;
+    background-color: rgba(154, 140, 113, 0.308);
+    padding: 1rem;
+}
+
+.aiChatMessage, .userChatMessage {
+  border: .5px solid black;
+  width: 15rem;
+  margin: 1rem;
+  text-wrap: wrap;
+  padding: 1rem;
+  background: white;
+  border-radius: 3rem;
+}
+
+.aiChatMessage {
+    box-shadow: -4px 4px 7px 0 blue;
+}
+
+.userChatMessage {
+    box-shadow:  4px 4px 7px 0 red;
+    float: right;
+}
