@@ -1,29 +1,49 @@
 import { use, useState } from 'react'
 
 import face_styles_1 from './face_1.module.css'
+import Think from '../nerves/Nerve'
 
 const Face = () => {
     const [styles, setStyles] = useState(face_styles_1)
-    const [chatHistory, setChatHistory] = useState([ { "from": 'ai', "message": "..werewrew rewrqwewq ewqdxqwiodjhoqwijdo wiqjdoiqwjdoiwqjddoiwqj doiwqjdi ojsq." }, { "from": "user", "message": "lorem lipsum loreem lipsumm lorem lipsum lorem lipsum" },{ "from": 'ai', "message": "..werewrew rewrqwewq ewqdxqwiodjhoqwijdo wiqjdoiqwjdoiwqjddoiwqj doiwqjdi ojsq." }, { "from": "user", "message": "lorem lipsum loreem lipsumm lorem lipsum lorem lipsum" },{ "from": 'ai', "message": "..werewrew rewrqwewq ewqdxqwiodjhoqwijdo wiqjdoiqwjdoiwqjddoiwqj doiwqjdi ojsq." }, { "from": "user", "message": "lorem lipsum loreem lipsumm lorem lipsum lorem lipsum" },{ "from": 'ai', "message": "..werewrew rewrqwewq ewqdxqwiodjhoqwijdo wiqjdoiqwjdoiwqjddoiwqj doiwqjdi ojsq." }, { "from": "user", "message": "lorem lipsum loreem lipsumm lorem lipsum lorem lipsum" }, ])
+    const [chatHistory, setChatHistory] = useState([])
     const [message, setMessage] = useState('')
+    const [awaitingResponse, setAwaitingResponse] = useState(false)
 
     const handleOnType = (e) => {
       let value = e.target.value
       setMessage(value)
     }
 
-    const handleOnClick = () => {
+    const handleOnClick = async () => {
+      let chatContainer = document.getElementById('chatContainer')
+      let history = [...chatHistory, {"from": "user", "message": message}]
+      setChatHistory(history)
+      setMessage('')
 
+      setTimeout(() => {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }, 1000)
+
+      setAwaitingResponse(true)
+      let reply = await Think(message)
+      setAwaitingResponse(false)
+
+      history = [...history, {"from": "ai", "message": reply.message}]
+      setChatHistory(history)
+
+      setTimeout(() => {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }, 1000)
     } 
 
     return(
         <>
           <div className={styles.container}>
-            <div className={styles.chatContainer}>
+            <div id='chatContainer' className={styles.chatContainer}>
               {chatHistory.map((chatMessage, i) => {
                 return (
-                  <div>
-                    <div className={chatMessage.from == 'ai' ? styles.aiChatMessage : styles.userChatMessage} key={i}>
+                  <div key={i}>
+                    <div className={chatMessage.from == 'ai' ? styles.aiChatMessage : styles.userChatMessage}>
                       {chatMessage.message}
                     </div>
                   </div>
@@ -34,10 +54,12 @@ const Face = () => {
             <div className={styles.textAreaContainer}>
               <textarea className={styles.textArea}
                 onChange={handleOnType}
+                value={message}
               />
 
               <button className={styles.sendButton}
                 onClick={handleOnClick}
+                disabled={awaitingResponse}
               > Send </button>
             </div>
           </div>
